@@ -1,0 +1,8 @@
+.jokes__container {
+	width: 100%;
+	display: flex;
+	flex-direction: column;
+	align-content: center;
+	justify-content: flex-start;
+	align-items: center;
+}
