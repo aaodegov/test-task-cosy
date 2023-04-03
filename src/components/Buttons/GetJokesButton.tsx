@@ -1,41 +1,10 @@
 import Button from '@mui/material/Button';
-import axios from 'axios';
-import { useAppDispatch } from '../../app/hooks';
-import { fillJokesList } from '../../features/currentJokesSlice';
-import { useNavigate } from 'react-router-dom';
 
-export interface IJoke {
-	category: string;
-	flags: {
-		explicit: boolean;
-		nsfw: boolean;
-		political: boolean;
-		racist: boolean;
-		religious: boolean;
-		sexist: boolean;
-	};
-	id: number;
-	joke: string;
-	lang: string;
-	safe: boolean;
-	type: string;
-}
+type getJokesProps = {
+	getJokesArray: () => void;
+};
 
-const GetJokesButton = () => {
-	const dispatch = useAppDispatch();
-	const navigate = useNavigate();
-
-	const getJokesArray = () => {
-		const apiUrl =
-			'https://v2.jokeapi.dev/joke/Programming?type=single&amount=10';
-		axios.get(apiUrl).then((resp) => {
-			const jokesList: Array<IJoke> = resp.data.jokes;
-			dispatch(fillJokesList(jokesList));
-			localStorage.setItem('currentJokes', JSON.stringify(jokesList));
-		});
-		navigate('/jokes');
-	};
-
+const GetJokesButton = (props: getJokesProps) => {
 	return (
 		<Button
 			sx={{
@@ -48,7 +17,7 @@ const GetJokesButton = () => {
 					opacity: 1,
 				},
 			}}
-			onClick={() => getJokesArray()}
+			onClick={() => props.getJokesArray()}
 			variant="contained"
 		>
 			Дайте мне джоуки!

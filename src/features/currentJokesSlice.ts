@@ -1,5 +1,5 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IJoke } from '../components/Buttons/GetJokesButton';
+import { IJoke } from '../components/MainPage';
 
 export interface ICurrentJokes {
 	isEmpty: boolean;

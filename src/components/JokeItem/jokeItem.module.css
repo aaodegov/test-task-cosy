@@ -1,9 +1,15 @@
 .joke__item {
 	width: 80%;
-	border: 1px solid black;
+	border: 1px solid rgb(93, 67, 63);
 	padding: 10px;
 	margin: 10px;
 	border-radius: 6px;
 	display: flex;
-	background-color: azure;
+	background-color: rgb(253, 247, 194);
+	justify-content: space-between;
+	align-items: center;
+}
+
+.star__icon {
+	cursor: pointer;
 }
