@@ -5,6 +5,7 @@ import FavouriteJokesButton from './Buttons/FavouriteJokesButton';
 import { useAppDispatch } from '../app/hooks';
 import { fillJokesList } from '../features/currentJokesSlice';
 import axios from 'axios';
+import { IExtendedJoke } from '../features/favouriteJokesSlice';
 
 export interface IJoke {
 	category: string;
@@ -27,14 +28,21 @@ const MainPage = () => {
 	const dispatch = useAppDispatch();
 	const navigate = useNavigate();
 
-	// получение списка шуток
+	// получение списка шуток и добавление поля статус для завязки на него лайка
 	const getJokesArray = () => {
 		const apiUrl =
 			'https://v2.jokeapi.dev/joke/Programming?type=single&amount=10';
 		axios.get(apiUrl).then((resp) => {
-			const jokesList: Array<IJoke> = resp.data.jokes;
-			dispatch(fillJokesList(jokesList));
-			localStorage.setItem('currentJokes', JSON.stringify(jokesList));
+			const jokesList: Array<IExtendedJoke> = resp.data.jokes;
+			const jokeListWithStatus = jokesList.map((item) => ({
+				...item,
+				status: false,
+			}));
+			dispatch(fillJokesList(jokeListWithStatus));
+			localStorage.setItem(
+				'currentJokes',
+				JSON.stringify(jokeListWithStatus)
+			);
 		});
 		navigate('/jokes');
 	};

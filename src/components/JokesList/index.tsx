@@ -11,13 +11,17 @@ const JokesList = () => {
 	// если локалстор не пустой, то диспатчатся в стор эти данные
 	// если локалстор пустой, то диспатчится информация о том, что шутки не загружены и список шуток пуст
 	useEffect(() => {
+		if (localStorage.getItem('favouriteJokes') === null) {
+			localStorage.setItem('favouriteJokes', JSON.stringify([]));
+		}
+
 		const jokesFromLocalStorage = localStorage.getItem('currentJokes');
 		jokesFromLocalStorage !== null
 			? dispatch(fillJokesList(JSON.parse(jokesFromLocalStorage)))
 			: dispatch(
 					fillJokesList({
 						isEmpty: true,
-						jokesList: null,
+						jokesList: [],
 					})
 			  );
 	}, []);
@@ -29,7 +33,7 @@ const JokesList = () => {
 		<div className={style.jokes__container}>
 			{jokes?.map((item) => (
 				<JokeItem
-					jokeText={item.joke}
+					joke={{ ...item, status: false }}
 					key={item.id}
 				/>
 			))}

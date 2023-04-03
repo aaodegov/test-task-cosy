@@ -1,22 +1,60 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import style from './jokeItem.module.css';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
 import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import {
+	IExtendedJoke,
+	fillFavouriteJokesList,
+} from '../../features/favouriteJokesSlice';
+import 'lodash.isequal';
+import isEqual from 'lodash.isequal';
 
-type JokeProps = {
-	jokeText: string;
-};
-
-const JokeItem = (joke: JokeProps) => {
+const JokeItem = (props: { joke: IExtendedJoke }) => {
 	const dispatch = useAppDispatch();
 
 	// состояние лайка на отдельной шутке
-	const [isFavorite, setIsFavorite] = useState(false);
+	const [isFavorite, setIsFavorite] = useState(props.joke.status);
+
+	const like = (joke: IExtendedJoke) => {
+		const favouriteJokesFromLocalStorage =
+			localStorage.getItem('favouriteJokes');
+
+		const favouriteJokesArray: Array<IExtendedJoke> = JSON.parse(
+			favouriteJokesFromLocalStorage!
+		);
+
+		favouriteJokesArray.push({ ...joke, status: true });
+		localStorage.setItem(
+			'favouriteJokes',
+			JSON.stringify(favouriteJokesArray)
+		);
+		setIsFavorite(!isFavorite);
+	};
+
+	const unlike = (joke: IExtendedJoke) => {
+		const favouriteJokesFromLocalStorage =
+			localStorage.getItem('favouriteJokes');
+
+		const favouriteJokesArray: Array<IExtendedJoke> = JSON.parse(
+			favouriteJokesFromLocalStorage!
+		);
+
+		const favouriteJokesArrayWithoutUnlikeJoke = favouriteJokesArray.filter(
+			(item) => !isEqual(item, joke)
+		);
+
+		localStorage.setItem(
+			'favouriteJokes',
+			JSON.stringify(favouriteJokesArrayWithoutUnlikeJoke)
+		);
+		dispatch(fillFavouriteJokesList(favouriteJokesArrayWithoutUnlikeJoke));
+		setIsFavorite(!isFavorite);
+	};
 
 	return (
 		<div className={style.joke__item}>
-			{joke.jokeText}
+			{props.joke.joke}
 			{isFavorite ? (
 				<FavoriteRoundedIcon
 					sx={{
@@ -24,7 +62,7 @@ const JokeItem = (joke: JokeProps) => {
 						color: 'red',
 					}}
 					className={style.star__icon}
-					onClick={() => setIsFavorite(!isFavorite)}
+					onClick={() => unlike(props.joke)}
 				/>
 			) : (
 				<FavoriteBorderRoundedIcon
@@ -38,8 +76,7 @@ const JokeItem = (joke: JokeProps) => {
 						},
 					}}
 					className={style.star__icon}
-					// тут нужна функция удаления шутки из избранного
-					onClick={() => setIsFavorite(!isFavorite)}
+					onClick={() => like(props.joke)}
 				/>
 			)}
 		</div>

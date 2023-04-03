@@ -1,14 +1,15 @@
 import { createSlice } from '@reduxjs/toolkit';
 import { IJoke } from '../components/MainPage';
+import { IExtendedJoke } from './favouriteJokesSlice';
 
 export interface ICurrentJokes {
 	isEmpty: boolean;
-	jokesList: Array<IJoke> | null;
+	jokesList: Array<IExtendedJoke>;
 }
 
 const initialState: ICurrentJokes = {
 	isEmpty: true,
-	jokesList: null,
+	jokesList: [],
 };
 
 export const currentJokesSlice = createSlice({

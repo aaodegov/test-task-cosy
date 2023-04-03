@@ -1,10 +1,11 @@
 import { configureStore } from '@reduxjs/toolkit';
 import currentJokesSlice from '../features/currentJokesSlice';
+import favouriteJokesSlice from '../features/favouriteJokesSlice';
 
 export const store = configureStore({
 	reducer: {
 		currentJokes: currentJokesSlice,
-		// favouriteJokes: favouriteJokesSlice
+		favouriteJokes: favouriteJokesSlice,
 	},
 });
 
