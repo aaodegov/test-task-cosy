@@ -1,11 +1,10 @@
 import style from './mainPage.module.css';
 import { Outlet, useNavigate } from 'react-router-dom';
-import GetJokesButton from './Buttons/GetJokesButton';
-import FavouriteJokesButton from './Buttons/FavouriteJokesButton';
 import { useAppDispatch } from '../app/hooks';
 import { fillJokesList } from '../features/currentJokesSlice';
 import axios from 'axios';
 import { IExtendedJoke } from '../features/favouriteJokesSlice';
+import FunctionalButton from './Buttons/FunctionalButton';
 
 export interface IJoke {
 	category: string;
@@ -29,6 +28,7 @@ const MainPage = () => {
 	const navigate = useNavigate();
 
 	// получение списка шуток и добавление поля статус для завязки на него лайка
+	// Добавление списка шуток в локалстор и стэйт
 	const getJokesArray = () => {
 		const apiUrl =
 			'https://v2.jokeapi.dev/joke/Programming?type=single&amount=10';
@@ -44,15 +44,26 @@ const MainPage = () => {
 				JSON.stringify(jokeListWithStatus)
 			);
 		});
+
 		navigate('/jokes');
+	};
+
+	const goToFavouritePage = () => {
+		navigate('/favourites');
 	};
 
 	return (
 		<div className={style.wrapper}>
 			<div className={style.content__area}>
 				<div className={style.buttons__block}>
-					<GetJokesButton getJokesArray={getJokesArray} />
-					<FavouriteJokesButton />
+					<FunctionalButton
+						onClickFunction={getJokesArray}
+						textOnButton={'Дайте мне джоуки!'}
+					/>
+					<FunctionalButton
+						onClickFunction={goToFavouritePage}
+						textOnButton={'Очень понравившиеся мне джоуки!'}
+					/>
 				</div>
 				<Outlet />
 			</div>

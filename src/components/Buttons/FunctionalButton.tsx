@@ -1,28 +1,29 @@
 import Button from '@mui/material/Button';
 
-type getJokesProps = {
-	getJokesArray: () => void;
-};
-
-const GetJokesButton = (props: getJokesProps) => {
+const FunctionalButton = (props: {
+	onClickFunction: () => void;
+	textOnButton: string;
+}) => {
 	return (
 		<Button
 			sx={{
 				backgroundColor: '#b2ebf2',
 				color: 'gray',
+				margin: '8px',
 				borderRadius: '8px',
+				transition: '0.3s',
 				'&:hover': {
 					backgroundColor: '#b2ebf2',
 					color: 'black',
 					opacity: 1,
 				},
 			}}
-			onClick={() => props.getJokesArray()}
+			onClick={() => props.onClickFunction()}
 			variant="contained"
 		>
-			Дайте мне джоуки!
+			{props.textOnButton}
 		</Button>
 	);
 };
 
-export default GetJokesButton;
+export default FunctionalButton;

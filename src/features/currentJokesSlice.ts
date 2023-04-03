@@ -1,5 +1,4 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IJoke } from '../components/MainPage';
 import { IExtendedJoke } from './favouriteJokesSlice';
 
 export interface ICurrentJokes {

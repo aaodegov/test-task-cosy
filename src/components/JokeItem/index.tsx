@@ -7,7 +7,6 @@ import {
 	IExtendedJoke,
 	fillFavouriteJokesList,
 } from '../../features/favouriteJokesSlice';
-import 'lodash.isequal';
 import isEqual from 'lodash.isequal';
 
 const JokeItem = (props: { joke: IExtendedJoke }) => {
@@ -59,13 +58,17 @@ const JokeItem = (props: { joke: IExtendedJoke }) => {
 	};
 
 	return (
-		<div className={style.joke__item}>
+		<div
+			className={style.joke__item}
+			data-testid="joke-item"
+		>
 			{props.joke.joke}
 			{isFavorite ? (
 				<FavoriteRoundedIcon
 					sx={{
-						fontSize: 28,
+						fontSize: 22,
 						color: 'red',
+						transition: '0.3s',
 					}}
 					className={style.star__icon}
 					onClick={() => unlike(props.joke)}
@@ -73,9 +76,10 @@ const JokeItem = (props: { joke: IExtendedJoke }) => {
 			) : (
 				<FavoriteBorderRoundedIcon
 					sx={{
-						fontSize: 28,
+						fontSize: 22,
 						color: 'grey',
 						opacity: isFavorite ? 1 : 0.3,
+						transition: '0.3s',
 						'&:hover': {
 							color: 'red',
 							opacity: 1,
