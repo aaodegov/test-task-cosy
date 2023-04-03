@@ -11,6 +11,7 @@ const FavouriteJokeList = () => {
 	// если локалстор не пустой, то диспатчатся в стор эти данные
 	// если локалстор пустой, то диспатчится информация о том, что шутки не загружены и список шуток пуст
 	useEffect(() => {
+		// получение массива понравившихся шуток из локалстора
 		const favouriteJokesFromLocalStorage =
 			localStorage.getItem('favouriteJokes');
 		favouriteJokesFromLocalStorage !== null

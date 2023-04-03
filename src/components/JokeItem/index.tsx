@@ -16,15 +16,18 @@ const JokeItem = (props: { joke: IExtendedJoke }) => {
 	// состояние лайка на отдельной шутке
 	const [isFavorite, setIsFavorite] = useState(props.joke.status);
 
+	// функция проставления лайка на понравившуюся шутку
 	const like = (joke: IExtendedJoke) => {
+		// получения имеющихся шуток из локалстора
 		const favouriteJokesFromLocalStorage =
 			localStorage.getItem('favouriteJokes');
-
+		// конвертация стринги в массив
 		const favouriteJokesArray: Array<IExtendedJoke> = JSON.parse(
 			favouriteJokesFromLocalStorage!
 		);
-
+		// добавление в массив понравившейся шутки
 		favouriteJokesArray.push({ ...joke, status: true });
+		// сохрание измененного массива шуток в локалстор
 		localStorage.setItem(
 			'favouriteJokes',
 			JSON.stringify(favouriteJokesArray)
@@ -32,22 +35,25 @@ const JokeItem = (props: { joke: IExtendedJoke }) => {
 		setIsFavorite(!isFavorite);
 	};
 
+	// функция удаления лайка с ранее понравившейся шутки
 	const unlike = (joke: IExtendedJoke) => {
+		// получения имеющихся шуток из локалстора
 		const favouriteJokesFromLocalStorage =
 			localStorage.getItem('favouriteJokes');
-
+		// конвертация стринги в массив
 		const favouriteJokesArray: Array<IExtendedJoke> = JSON.parse(
 			favouriteJokesFromLocalStorage!
 		);
-
+		// создание нового массива шуток без той, что перестала нравится
 		const favouriteJokesArrayWithoutUnlikeJoke = favouriteJokesArray.filter(
 			(item) => !isEqual(item, joke)
 		);
-
+		// сохрание измененного массива шуток в локалстор
 		localStorage.setItem(
 			'favouriteJokes',
 			JSON.stringify(favouriteJokesArrayWithoutUnlikeJoke)
 		);
+		// перезапись массива шуток в стэйт
 		dispatch(fillFavouriteJokesList(favouriteJokesArrayWithoutUnlikeJoke));
 		setIsFavorite(!isFavorite);
 	};

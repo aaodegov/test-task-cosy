@@ -15,6 +15,7 @@ const JokesList = () => {
 			localStorage.setItem('favouriteJokes', JSON.stringify([]));
 		}
 
+		// // получение массива запрошенных(новых) шуток из локалстора
 		const jokesFromLocalStorage = localStorage.getItem('currentJokes');
 		jokesFromLocalStorage !== null
 			? dispatch(fillJokesList(JSON.parse(jokesFromLocalStorage)))
