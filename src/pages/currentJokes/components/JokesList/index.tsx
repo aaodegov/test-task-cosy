@@ -29,7 +29,7 @@ const JokesList = () => {
 
 	return (
 		<div className={style.jokes__container}>
-			{isLoading ? (
+			{jokes.length === 0 ? (
 				<h1>Loading</h1>
 			) : (
 				jokes.map((item) => (

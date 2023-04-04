@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import JokeItem from '../JokeItem';
-import style from '../JokesList/jokeList.module.css';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
-import { fillFavouriteJokesList } from '../../features/favouriteJokesSlice';
+import JokeItem from '../../../components/JokeItem';
+import style from '../../../components/JokesList/jokeList.module.css';
+import { useAppDispatch, useAppSelector } from '../../../app/hooks';
+import { fillFavouriteJokesList } from '../../../features/favouriteJokesSlice';
 
 const FavouriteJokeList = () => {
 	const dispatch = useAppDispatch();
