@@ -1,12 +1,12 @@
-import React, { useEffect, useState } from 'react';
+import React, { useState } from 'react';
 import style from './jokeItem.module.css';
 import FavoriteRoundedIcon from '@mui/icons-material/FavoriteRounded';
 import FavoriteBorderRoundedIcon from '@mui/icons-material/FavoriteBorderRounded';
-import { useAppDispatch, useAppSelector } from '../../app/hooks';
+import { useAppDispatch } from '../../utils/hooks/hooks';
 import {
 	IExtendedJoke,
 	fillFavouriteJokesList,
-} from '../../features/favouriteJokesSlice';
+} from '../../store/reducers/favouriteJokesSlice';
 import isEqual from 'lodash.isequal';
 
 const JokeItem = (props: { joke: IExtendedJoke }) => {
@@ -39,7 +39,7 @@ const JokeItem = (props: { joke: IExtendedJoke }) => {
 		// получения имеющихся шуток из локалстора
 		const favouriteJokesFromLocalStorage =
 			localStorage.getItem('favouriteJokes');
-		// конвертация стринги в массив
+
 		const favouriteJokesArray: Array<IExtendedJoke> = JSON.parse(
 			favouriteJokesFromLocalStorage!
 		);

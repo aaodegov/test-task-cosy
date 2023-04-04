@@ -1,8 +1,8 @@
 import React, { useEffect } from 'react';
-import JokeItem from '../../../components/JokeItem';
-import style from '../../../components/JokesList/jokeList.module.css';
-import { useAppDispatch, useAppSelector } from '../../../app/hooks';
-import { fillFavouriteJokesList } from '../../../features/favouriteJokesSlice';
+import JokeItem from '../../../../components/JokeItem';
+import style from '../../../currentJokes/components/JokesList/jokeList.module.css';
+import { useAppDispatch, useAppSelector } from '../../../../utils/hooks/hooks';
+import { fillFavouriteJokesList } from '../../../../store/reducers/favouriteJokesSlice';
 
 const FavouriteJokeList = () => {
 	const dispatch = useAppDispatch();
@@ -14,19 +14,14 @@ const FavouriteJokeList = () => {
 		// получение массива понравившихся шуток из локалстора
 		const favouriteJokesFromLocalStorage =
 			localStorage.getItem('favouriteJokes');
-		favouriteJokesFromLocalStorage !== null
-			? dispatch(
+		if (favouriteJokesFromLocalStorage !== null) {
+			dispatch(
 					fillFavouriteJokesList(
 						JSON.parse(favouriteJokesFromLocalStorage)
 					)
 			  )
-			: dispatch(
-					fillFavouriteJokesList({
-						isEmpty: true,
-						favouriteJokesList: [],
-					})
-			  );
-	}, []);
+		}
+	}, [dispatch]);
 
 	// чтобы не работать с данными из локалстора, дергаем данные для работы уже из стора
 	const jokes = useAppSelector(

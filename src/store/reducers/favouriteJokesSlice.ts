@@ -1,5 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
-import { IJoke } from '../pages/mainPage/components/MainPage';
+import {IJoke} from "../../models/interfaces/IJoke";
+
 
 export interface IExtendedJoke extends IJoke {
 	status: boolean;

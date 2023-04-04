@@ -5,11 +5,11 @@ import {
 	RouterProvider,
 	createBrowserRouter,
 } from 'react-router-dom';
-import MainPage from './components/MainPage';
-import FavouriteJokesList from './components/FavouritesList';
-import JokesList from './components/JokesList';
-import ErrorPage from './components/ErrorPage';
-import NotFoundPage from './components/NotFoundPage';
+import MainPage from './pages/mainPage/components/MainPage';
+import FavouriteJokesList from './pages/favouriteJokes/components/FavouritesList';
+import JokesList from './pages/currentJokes/components/JokesList';
+import ErrorPage from './pages/errorPage/components/ErrorPage';
+import NotFoundPage from './pages/notFoundPage/components/NotFoundPage';
 
 const router = createBrowserRouter([
 	{

@@ -1,6 +1,6 @@
 import { configureStore } from '@reduxjs/toolkit';
-import currentJokesSlice from '../features/currentJokesSlice';
-import favouriteJokesSlice from '../features/favouriteJokesSlice';
+import currentJokesSlice from './reducers/currentJokesSlice';
+import favouriteJokesSlice from './reducers/favouriteJokesSlice';
 
 export const store = configureStore({
 	reducer: {

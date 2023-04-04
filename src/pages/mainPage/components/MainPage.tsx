@@ -1,27 +1,10 @@
 import style from './mainPage.module.css';
 import { Outlet, useNavigate } from 'react-router-dom';
-import { useAppDispatch } from '../app/hooks';
-import { fillJokesList } from '../features/currentJokesSlice';
+import { useAppDispatch } from '../../../utils/hooks/hooks';
+import { fillJokesList } from '../../../store/reducers/currentJokesSlice';
 import axios from 'axios';
-import { IExtendedJoke } from '../features/favouriteJokesSlice';
-import FunctionalButton from './Buttons/FunctionalButton';
-
-export interface IJoke {
-	category: string;
-	flags: {
-		explicit: boolean;
-		nsfw: boolean;
-		political: boolean;
-		racist: boolean;
-		religious: boolean;
-		sexist: boolean;
-	};
-	id: number;
-	joke: string;
-	lang: string;
-	safe: boolean;
-	type: string;
-}
+import { IExtendedJoke } from '../../../store/reducers/favouriteJokesSlice';
+import FunctionalButton from '../../../components/Buttons/FunctionalButton';
 
 const MainPage = () => {
 	const dispatch = useAppDispatch();
@@ -57,11 +40,11 @@ const MainPage = () => {
 			<div className={style.content__area}>
 				<div className={style.buttons__block}>
 					<FunctionalButton
-						onClickFunction={getJokesArray}
+						actionFunction={getJokesArray}
 						textOnButton={'Дайте мне джоуки!'}
 					/>
 					<FunctionalButton
-						onClickFunction={goToFavouritePage}
+						actionFunction={goToFavouritePage}
 						textOnButton={'Очень понравившиеся мне джоуки!'}
 					/>
 				</div>

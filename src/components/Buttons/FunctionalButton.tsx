@@ -1,7 +1,7 @@
 import Button from '@mui/material/Button';
 
 const FunctionalButton = (props: {
-	onClickFunction: () => void;
+	actionFunction: () => void;
 	textOnButton: string;
 }) => {
 	return (
@@ -18,7 +18,7 @@ const FunctionalButton = (props: {
 					opacity: 1,
 				},
 			}}
-			onClick={() => props.onClickFunction()}
+			onClick={() => props.actionFunction()}
 			variant="contained"
 		>
 			{props.textOnButton}
